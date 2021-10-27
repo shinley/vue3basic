@@ -13,7 +13,8 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, onMounted, onUnmounted } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
+import useClickOutside from '@/hooks/useClickOutside'
 export default defineComponent({
   name: 'Dropdown',
   props: {
@@ -27,25 +28,17 @@ export default defineComponent({
     const toogleOpen = () => {
       isOpen.value = !isOpen.value
     }
-    // 此处定义的变量名，和上面dom上定义的ref值相同， 并且在setup中要return出去
-    // 这样就可以在运行中使用dom对象
     const dropdownRef = ref<HTMLElement | null>(null)
-    const handler = (e: MouseEvent) => {
-      if (dropdownRef.value) {
-        if (
-          !dropdownRef.value.contains(e.target as HTMLElement) &&
-          isOpen.value
-        ) {
-          isOpen.value = false
-        }
+    const isClickOutside = useClickOutside(dropdownRef)
+
+    watch(isClickOutside, () => {
+      if (isOpen.value && isClickOutside) {
+        isOpen.value = false
+      } else {
+        isOpen.value = true
       }
-    }
-    onMounted(() => {
-      document.addEventListener('click', handler)
     })
-    onUnmounted(() => {
-      document.removeEventListener('click', handler)
-    })
+
     return {
       isOpen,
       toogleOpen,
