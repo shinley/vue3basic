@@ -5,9 +5,9 @@ const useClickOutside = (elementRef: Ref<null | HTMLElement>) => {
   const handler = (e: MouseEvent) => {
     if (elementRef.value) {
       if (elementRef.value.contains(e.target as HTMLElement)) {
-        isClickOutside.value = false
-      } else {
         isClickOutside.value = true
+      } else {
+        isClickOutside.value = false
       }
     }
   }
