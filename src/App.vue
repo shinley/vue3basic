@@ -8,6 +8,7 @@
           :rules="emailRules"
           placeholder="请输入邮箱"
           v-model="emailVal"
+          ref="inputRef"
         ></validate-input>
         {{ emailVal }}
       </div>
@@ -77,8 +78,11 @@ export default defineComponent({
         emailRef.message = 'should be valid email'
       }
     }
+
+    const inputRef = ref<any>()
     const onFormSubmit = (result: boolean) => {
-      console.log(1234)
+      // 可以调子组件的方法
+      console.log(inputRef.value.validateInput())
     }
     return {
       currentUser,
@@ -87,6 +91,7 @@ export default defineComponent({
       emailRules,
       emailVal,
       onFormSubmit,
+      inputRef,
     }
   },
 })
