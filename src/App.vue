@@ -2,11 +2,11 @@
   <div class="container">
     <global-header :user="currentUser"></global-header>
     <form action="">
-      <div class="mb-3">
-        <label for="exampleInputEmail" class="form-lable">邮箱地址</label>
+      <div class="mb-3 text-start">
+        <label class="form-label">Email</label>
         <validate-input :rules="emailRules"></validate-input>
       </div>
-      <div class="mb-3">
+      <div class="mb-3 text-start">
         <label for="exampleInputEmail" class="form-lable">邮箱地址</label>
         <input
           type="email"
@@ -16,11 +16,11 @@
           v-model="emailRef.val"
           @blur="validateEmail"
         />
-        <div class="form-text" v-if="emailRef.error">
+        <div class="form-text text-start" v-if="emailRef.error">
           {{ emailRef.message }}
         </div>
       </div>
-      <div class="fmb-3">
+      <div class="mb-3 text-start">
         <label for="exampleInputPassword">Password</label>
         <input
           type="password"
