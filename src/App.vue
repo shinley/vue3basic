@@ -4,7 +4,11 @@
     <form action="">
       <div class="mb-3 text-start">
         <label class="form-label">Email</label>
-        <validate-input :rules="emailRules" v-model="emailVal"></validate-input>
+        <validate-input
+          :rules="emailRules"
+          placeholder="请输入邮箱"
+          v-model="emailVal"
+        ></validate-input>
         {{ emailVal }}
       </div>
       <div class="mb-3 text-start">
