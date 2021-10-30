@@ -9,13 +9,31 @@
   </form>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onUnmounted } from 'vue'
+import mitt from 'mitt'
+
+type Events = {
+  formItemCreated: string
+}
+
+export const emitter = mitt<Events>()
 export default defineComponent({
   emits: ['form-submit'],
   setup(props, context) {
     const submitForm = () => {
       context.emit('form-submit', true)
     }
+
+    type callBackFunc = (data: string) => void
+    const callback: callBackFunc = (test) => {
+      console.log(test)
+    }
+    // 监听器
+    emitter.on('formItemCreated', callback)
+    // 卸载时清理监听器
+    onUnmounted(() => {
+      emitter.off('formItemCreated', callback)
+    })
     return {
       submitForm,
     }
