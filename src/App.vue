@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <global-header :user="currentUser"></global-header>
-    <form action="">
+    <validate-form @form-submit="onFormSubmit">
       <div class="mb-3 text-start">
         <label class="form-label">Email</label>
         <validate-input
@@ -11,30 +11,21 @@
         ></validate-input>
         {{ emailVal }}
       </div>
+
       <div class="mb-3 text-start">
-        <label for="exampleInputEmail" class="form-lable">邮箱地址</label>
-        <input
-          type="email"
-          class="form-control"
-          id="exampleInputEmail"
-          placeholder="name@example.com"
-          v-model="emailRef.val"
-          @blur="validateEmail"
-        />
-        <div class="form-text text-start" v-if="emailRef.error">
-          {{ emailRef.message }}
-        </div>
-      </div>
-      <div class="mb-3 text-start">
-        <label for="exampleInputPassword">Password</label>
-        <input
+        <label for="exampleInputPassword">密码</label>
+        <validate-input
           type="password"
           class="form-control"
           id="exampleInputPassword"
           placeholder="Password"
         />
       </div>
-    </form>
+      <!-- 具名插槽可以缩写为 #submit-->
+      <template v-slot:submit>
+        <span class="btn btn-danger">Submit</span>
+      </template>
+    </validate-form>
   </div>
 </template>
 
@@ -43,6 +34,7 @@ import { defineComponent, reactive, ref } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import GlobalHeader, { UserProps } from '@/components/GlobalHeader.vue'
 import ValidateInput, { RulesProp } from '@/components/ValidateInput.vue'
+import ValidateForm from '@/components/ValidateForm.vue'
 
 const currentUser: UserProps = {
   id: 1,
@@ -56,6 +48,7 @@ export default defineComponent({
   components: {
     GlobalHeader,
     ValidateInput,
+    ValidateForm,
   },
   setup() {
     const emailVal = ref('viking')
@@ -84,12 +77,16 @@ export default defineComponent({
         emailRef.message = 'should be valid email'
       }
     }
+    const onFormSubmit = (result: boolean) => {
+      console.log(1234)
+    }
     return {
       currentUser,
       emailRef,
       validateEmail,
       emailRules,
       emailVal,
+      onFormSubmit,
     }
   },
 })
