@@ -4,7 +4,8 @@
       type="text"
       class="form-control"
       :class="{ 'is-invalid': inputRef.error }"
-      v-model="inputRef.val"
+      :value="inputRef.val"
+      @input="updateValue"
       @blur="validateInput"
     />
     <div class="form-text invalid-feedback" v-if="inputRef.error">
@@ -24,13 +25,19 @@ export type RulesProp = RuleProp[]
 export default defineComponent({
   props: {
     rules: Array as PropType<RulesProp>,
+    modelValue: String,
   },
-  setup(props) {
+  setup(props, context) {
     const inputRef = reactive({
-      val: '',
+      val: props.modelValue || '',
       error: false,
       message: '',
     })
+    const updateValue = (e: KeyboardEvent) => {
+      const targtValue = (e.target as HTMLInputElement).value
+      inputRef.val = targtValue
+      context.emit('update:modelValue', targtValue)
+    }
     const validateInput = () => {
       if (props.rules) {
         const allPassed = props.rules.every((rule) => {
@@ -53,6 +60,7 @@ export default defineComponent({
     return {
       inputRef,
       validateInput,
+      updateValue,
     }
   },
 })

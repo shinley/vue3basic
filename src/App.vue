@@ -4,7 +4,8 @@
     <form action="">
       <div class="mb-3 text-start">
         <label class="form-label">Email</label>
-        <validate-input :rules="emailRules"></validate-input>
+        <validate-input :rules="emailRules" v-model="emailVal"></validate-input>
+        {{ emailVal }}
       </div>
       <div class="mb-3 text-start">
         <label for="exampleInputEmail" class="form-lable">邮箱地址</label>
@@ -34,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import GlobalHeader, { UserProps } from '@/components/GlobalHeader.vue'
 import ValidateInput, { RulesProp } from '@/components/ValidateInput.vue'
@@ -53,6 +54,7 @@ export default defineComponent({
     ValidateInput,
   },
   setup() {
+    const emailVal = ref('viking')
     const emailRules: RulesProp = [
       {
         type: 'required',
@@ -83,6 +85,7 @@ export default defineComponent({
       emailRef,
       validateEmail,
       emailRules,
+      emailVal,
     }
   },
 })
