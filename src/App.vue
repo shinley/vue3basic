@@ -81,6 +81,7 @@ export default defineComponent({
 
     const inputRef = ref<any>()
     const onFormSubmit = (result: boolean) => {
+      console.log('校验结果', result)
       // 可以调子组件的方法
       console.log(inputRef.value.validateInput())
     }

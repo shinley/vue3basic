@@ -62,7 +62,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      emitter.emit('formItemCreated', '哈哈。。。')
+      emitter.emit('formItemCreated', validateInput)
     })
     return {
       inputRef,
