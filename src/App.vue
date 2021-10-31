@@ -1,32 +1,18 @@
 <template>
   <div class="container">
     <global-header :user="currentUser"></global-header>
-    <validate-form @form-submit="onFormSubmit">
-      <div class="mb-3 text-start">
-        <label class="form-label">Email</label>
-        <validate-input
-          :rules="emailRules"
-          placeholder="请输入邮箱"
-          v-model="emailVal"
-          ref="inputRef"
-        ></validate-input>
-        {{ emailVal }}
-      </div>
-
-      <div class="mb-3 text-start">
-        <label for="exampleInputPassword">密码</label>
-        <validate-input
-          type="password"
-          class="form-control"
-          id="exampleInputPassword"
-          placeholder="Password"
-        />
-      </div>
-      <!-- 具名插槽可以缩写为 #submit-->
-      <template v-slot:submit>
-        <span class="btn btn-danger">Submit</span>
-      </template>
-    </validate-form>
+    <router-view></router-view>
+    <footer class="text-center py-4 text-secondary bg-light mt-6">
+      <small>
+        <ul class="list-inline mb-0">
+          <li>@2020者也专栏</li>
+          <li>课程</li>
+          <li>文档</li>
+          <li>联系</li>
+          <li>更多</li>
+        </ul>
+      </small>
+    </footer>
   </div>
 </template>
 
